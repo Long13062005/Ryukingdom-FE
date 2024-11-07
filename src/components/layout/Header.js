@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 const logo = "https://firebasestorage.googleapis.com/v0/b/ryukingdom-48b31.appspot.com/o/logoJPG.png?alt=media&token=4e22b021-5b23-481e-90ef-e22199bb9df5";
 export function Header() {
     return (
@@ -17,6 +19,8 @@ export function Header() {
                             <li className="nav-item"><a className="nav-link" href="#about">About</a></li>
                             <li className="nav-item"><a className="nav-link" href="#team">Location</a></li>
                             <li className="nav-item"><a className="nav-link" href="#contact">feedback</a></li>
+                            <li className="nav-item"><Link className="nav-link" to={"/book"}>Book</Link></li>
+                            <li className="nav-item"><Link className="nav-link" to={"/login"}>Login</Link></li>
                         </ul>
                     </div>
                 </div>

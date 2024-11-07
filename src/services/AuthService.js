@@ -1,47 +1,139 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 
-const API_URL = "http://localhost:8080/api/auth/";
+class AuthService    {
+    static BASE_URL = "http://localhost:1010"
 
-const register = (username, dob, gender, phoneNumber, idCard, address, password) => {
-    return axios.post(API_URL + "register", {
-        username,
-        dob,
-        gender,
-        phoneNumber,
-        idCard,
-        address,
-        password,
-    });
-};
-
-const login = (username, password) => {
-    return axios
-        .post(API_URL + "login", {
-            username,
-            password,
-        })
-        .then((response) => {
-            if (response.data.accessToken) {
-                localStorage.setItem("user", JSON.stringify(response.data));
-            }
-
+    static async login(username, password){
+        try{
+            const response = await axios.post(`${AuthService.BASE_URL}/auth/login`, {username, password})
             return response.data;
-        });
-};
+        }catch(err){
+            throw err;
+        }
+    }
 
-const logout = () => {
-    localStorage.removeItem("user");
-};
+    static async register(username,password,email,name,dob,idCard,address,phoneNumber,gender){
+        try{
+            const response = await axios.post(`${AuthService.BASE_URL}/auth/register`, {username,password,email,name,dob,idCard,address,phoneNumber,gender})
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
 
-const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"));
-};
+    static async getAllUsers(token){
+        try{
+            const response = await axios.get(`${AuthService.BASE_URL}/admin/get-all-users`,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
 
-const AuthService = {
-    register,
-    login,
-    logout,
-    getCurrentUser,
-};
+
+    static async getYourProfile(token){
+        try{
+            const response = await axios.get(`${AuthService.BASE_URL}/adminstaff/profile`,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+    static async getYourPassword(token){
+        try{
+            const response = await axios.get(`${AuthService.BASE_URL}/adminstaff/password`,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+    static async getUserById(userId, token){
+        try{
+            const response = await axios.get(`${AuthService.BASE_URL}/admin/get-users/${userId}`,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+
+    static async deleteUser(userId, token){
+        try{
+            const response = await axios.delete(`${AuthService.BASE_URL}/admin/delete/${userId}`,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+
+
+    static async updateUser(userData, token){
+        try{
+            const response = await axios.put(`${AuthService.BASE_URL}/adminstaffcus/update`, userData,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+
+    /**AUTHENTICATION CHECKER */
+    static logout() {
+        localStorage.clear();
+        Swal.fire(
+            'Logged out!',
+            'You have been logged out.',
+            'success'
+        );
+    }
+
+    static isAuthenticated(){
+        const token = localStorage.getItem('token')
+        return !!token
+    }
+
+    static isAdmin(){
+        const role = localStorage.getItem('role')
+        return role === 'ROLE_ADMIN'
+    }
+
+    static isReceptionist(){
+        const role = localStorage.getItem('role')
+        return role === 'ROLE_RECEPTIONIST'
+    }
+
+    static isManager(){
+        const role = localStorage.getItem('role')
+        return role === 'ROLE_MANAGER'
+    }
+
+    static adminOnly(){
+        return this.isAuthenticated() && this.isAdmin();
+    }
+    static receptionistOnly(){
+        return this.isAuthenticated() && this.isReceptionist();
+    }
+    static managerOnly(){
+        return this.isAuthenticated() && this.isManager
+    }
+
+}
 
 export default AuthService;

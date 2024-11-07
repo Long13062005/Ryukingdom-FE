@@ -1,0 +1,4 @@
+.cp::placeholder {
+    color: rgb(250,169,13); /* Change this to your desired color */
+    opacity: 50%; /* Change this to your desired opacity */
+}

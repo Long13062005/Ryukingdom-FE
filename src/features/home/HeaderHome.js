@@ -36,7 +36,7 @@ export function HeaderHome() {
                                         borderTopColor: "rgb(255,255,255)",
                                         fontWeight: "bold",
                                         background: "var(--bs-form-invalid-border-color)",
-                                        width: "300px"
+                                        width: "382px"
                                     }}>Vietnam</span>
                                 </div>
                                 <div className="intro-lead-in" style={{margin: "100px 0 0px 0"}}>
@@ -46,7 +46,7 @@ export function HeaderHome() {
                             </div>
                         </div>
                         <div className="col">
-                            <div className="carousel slide " style={{margin : "30% 0 0 0",padding : "10%"}} data-bs-ride="false" id="carousel-1">
+                            <div className="carousel slide " style={{margin : "30% 0 0 0"}} data-bs-ride="false" id="carousel-1">
                                 <div className="carousel-inner">
                                     <div className="carousel-item active"><img className="w-100 d-block" src={exRoom}
                                                                                alt="Slid"/></div>
