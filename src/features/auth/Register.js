@@ -6,7 +6,7 @@ import AuthService from "../../services/AuthService";
 import {toast} from "react-toastify";
 
 const validationSchema = Yup.object().shape({
-    username: Yup.string().required('Username is required').min(6, 'Username must be at least 6 characters'),
+    username: Yup.string().required('Username is required').min(6, 'Username must be at least 6 characters').matches(/^[a-zA-Z0-9]*$/, 'Username must be characters'),
     password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
     fullName: Yup.string().required('full Name is required').matches(/^[a-zA-Z\s]*$/, 'Full name must be characters'),
         dob: Yup.date()
@@ -40,9 +40,11 @@ export function Register() {
             if (userData) {
                 const userDataLogin = await AuthService.login(values.username, values.password);
                 localStorage.setItem('token', userDataLogin.token);
-                localStorage.setItem('role', userDataLogin.role);
+                localStorage.setItem('role', userDataLogin.roles.name);
+                localStorage.setItem('username', values.username);
+
                 navigate('/user/profile');
-                toast.success("Register successfully", {
+                toast("Register successfully", {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -87,7 +89,7 @@ export function Register() {
                                     <div className="col-lg-6" style={{background: "var(--bs-body-bg)"}}>
                                         <div className="p-5">
                                             <div className="text-center">
-                                                <h4 className="text-dark mb-4">Welcome Back!</h4>
+                                                <h4 className="text-dark mb-4">Welcome To Ryu!</h4>
                                             </div>
                                             <Formik
                                                 initialValues={{
@@ -238,12 +240,13 @@ export function Register() {
                                                 )}
                                             </Formik>
                                         </div>
-                                        <Link className="btn d-block btn-user w-100 btn-info mb-3" to={"/login"}
-                                              style={{
-                                                  color: "rgb(255,255,255)",
-                                                  background: "var(--bs-emphasis-color)",
-                                                  borderColor: "var(--bs-btn-hover-color)"
-                                              }}>Login</Link>
+                                        <p className=" d-block  w-100 mb-3">You have account ? ->
+                                            <Link  to={"/login"}
+                                                   style={{
+                                                       color: "rgb(0,0,0)",
+                                                       borderColor: "var(--bs-btn-hover-color)"
+                                                   }}>Login</Link>
+                                        </p>
                                     </div>
                                 </div>
                             </div>

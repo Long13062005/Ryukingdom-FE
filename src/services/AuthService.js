@@ -7,6 +7,9 @@ class AuthService    {
     static async login(username, password){
         try{
             const response = await axios.post(`${AuthService.BASE_URL}/auth/login`, {username, password})
+            setTimeout(() => {
+                localStorage.clear();
+            }, 10000000);
             return response.data;
         }catch(err){
             throw err;
@@ -119,6 +122,10 @@ class AuthService    {
         return role === 'ROLE_RECEPTIONIST'
     }
 
+    static isCustomer(){
+        const role = localStorage.getItem('role')
+        return role === 'ROLE_CUSTOMER';
+    }
     static isManager(){
         const role = localStorage.getItem('role')
         return role === 'ROLE_MANAGER'

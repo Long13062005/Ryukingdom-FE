@@ -1,7 +1,7 @@
 import "../../assets/css/footer.css";
 export function Footer() {
     return (<>
-        <footer>
+        <footer style={{backgroundImage:"url('https://firebasestorage.googleapis.com/v0/b/ryukingdom-48b31.appspot.com/o/map-image.png?alt=media&token=e6b48205-8297-4a6a-bf05-12928a94494f')"}}>
             <div className="container text-md-left">
                 <div className="row text-md-left">
                     <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">

@@ -2,6 +2,8 @@ import {SideBar} from "../components/layout/SideBar";
 import {FooterDashboard} from "../components/layout/FooterDashboard";
 import {useEffect} from "react";
 import {Profile} from "../features/profile/Profile";
+import AuthService from "../services/AuthService";
+import {ErrorPage} from "../components/layout/ErrorPage";
 
 export function Dashboard() {
     useEffect(() => {
@@ -11,7 +13,10 @@ export function Dashboard() {
         <div id="page-top" >
             <div id="wrapper" >
                 <SideBar/>
-                 <Profile/>
+                {
+                   !AuthService.isAuthenticated() ? <ErrorPage/> : <Profile/>
+                }
+
             </div>
             <FooterDashboard/>
 

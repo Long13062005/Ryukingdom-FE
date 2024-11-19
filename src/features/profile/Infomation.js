@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const validationSchema = Yup.object().shape({
     fullName: Yup.string().required('Full Name is required').matches(/^[a-zA-Z ]*$/, "Full Name must be alphabetic"),
     dob: Yup.date().required('Date of Birth is required'),
-    phoneNumber: Yup.string().required('Phone Number is required').min(10, 'Phone Number must be at least 10 characters').max(11, 'Phone Number must be at most 11 characters'),
+    phoneNumber: Yup.string().required('Phone Number is required').min(10, 'Phone Number must be at least 10 characters').max(11, 'Phone Number must be at most 11 characters').matches(/^\d+$/, "Phone Number must be a number"),
     email: Yup.string().required('Email is required').email('Email is invalid').matches(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/, "Email must be in the form of)"),
     idCard: Yup.string().required('ID Card is required').matches(/^\d+$/, "ID Card must be a number").min(9, 'ID Card must be at least 9 characters').max(12, 'ID Card must be at most 12 characters'),
     address: Yup.string().required('Address is required').matches(/^[a-zA-Z0-9 ]*$/, "Address must be alphanumeric").min(5, 'Address must be at least 5 characters').max(50, 'Address must be at most 50 characters'),
