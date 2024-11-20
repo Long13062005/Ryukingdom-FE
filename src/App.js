@@ -2,8 +2,6 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import 'bootstrap/js/src/agency';
-import 'bootstrap/js/src/theme';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'font-awesome/css/font-awesome.css';
