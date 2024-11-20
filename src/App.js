@@ -1,7 +1,6 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/css/bootstrap1.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import 'bootstrap/js/src/agency';
 import 'bootstrap/js/src/theme';
@@ -19,7 +18,7 @@ import {PublicRoutes} from "./routes/PublicRoutes";
 import {PrivateRoutes} from "./routes/PrivateRoutes";
 import {ToastContainer} from "react-toastify";
 import {Dashboard} from "./pages/Dashboard";
-import {BookingDashboard} from "./features/booking/BookingDashboard";
+import"./assets/bootstrap/css/bootstrap1.min.css";
 import {FacilityDashboard} from "./features/facility/FacilityDashboard";
 import {FacilityAddDashboard} from "./features/facility/FacilityAddDashboard";
 import {FacilityUpdateDashboard} from "./features/facility/FacilityUpdateDashboard";
