@@ -9,6 +9,7 @@ import './assets/css/Availability---Manage-availability-bookings-appointments_v1
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'react-toastify/dist/ReactToastify.css';
 import './assets/css/Black-Navbar.css';
+import './assets/css/placeholder.css';
 import {Home} from "./pages/Home";
 import {Login} from "./features/auth/Login";
 import {Register} from "./features/auth/Register";

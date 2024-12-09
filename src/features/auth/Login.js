@@ -91,7 +91,7 @@ export function Login() {
     };
 
     return (<>
-        <div className="bg-gradient-primary" style={{
+        <div className="bg-full" style={{
             background: "url(https://firebasestorage.googleapis.com/v0/b/ryukingdom-48b31.appspot.com/o/HotelHeader.png?alt=media&token=96226faf-f43b-4302-9408-7b6ad8654963) center  / cover, var(--bs-border-color-translucent)",
             borderColor: "var(--bs-emphasis-color)"
         }}>

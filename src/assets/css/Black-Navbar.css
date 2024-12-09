@@ -9,6 +9,14 @@
   padding: 8px 20px;
   transition: background-color 0.25s;
 }
+.bg-full {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  padding : 0 0 55% 0 ;
+}
 
 .navigation-clean-button {
   background: #222222;

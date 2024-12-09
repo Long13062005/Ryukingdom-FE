@@ -14,6 +14,17 @@ class FacilityService {
             throw err;
         }
     }
+    static async searchFacilityList(token,name){
+        try{
+            const response = await axios.get(`${FacilityService.BASE_URL}/api/facilities/search/${name}`,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
     static async getFacility(token,id){
         try{
             const response = await axios.get(`${FacilityService.BASE_URL}/api/facilities/${id}`,

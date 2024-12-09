@@ -14,6 +14,17 @@ class EmployeeService {
             throw err;
         }
     }
+    static async searchEmployeeList(token,name){
+        try{
+            const response = await axios.get(`${EmployeeService.BASE_URL}/api/employee/search/${name}`,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
     static async getEmployee(token,id){
         try{
             const response = await axios.get(`${EmployeeService.BASE_URL}/api/employee/${id}`,

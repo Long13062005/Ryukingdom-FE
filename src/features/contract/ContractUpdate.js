@@ -111,7 +111,7 @@ export function ContractUpdate() {
                     <div
                         className="card-header d-flex flex-wrap justify-content-center align-items-center justify-content-sm-between gap-3"
                         style={{background: "#171821"}}>
-                        <h5 className="display-6 text-nowrap text-capitalize mb-0" style={{color: "#c1931f"}}>Add
+                        <h5 className="display-6 text-nowrap text-capitalize mb-0" style={{color: "#c1931f"}}>Update
                             Contract&nbsp;</h5>
                     </div>
                     <div className="card-body" style={{background: "#171821"}}>
