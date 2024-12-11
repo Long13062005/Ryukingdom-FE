@@ -1,24 +1,21 @@
-import {Link, useNavigate} from "react-router-dom";
-import {Form, Formik, Field, ErrorMessage} from "formik";
-import React, {useEffect, useState} from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Formik, Field, ErrorMessage } from "formik";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import AuthService from "../../services/AuthService";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required('Username is required').min(6, 'Username must be at least 6 characters').matches(/^[a-zA-Z0-9]*$/, 'Username must be characters'),
     password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
-    fullName: Yup.string().required('full Name is required').matches(/^[a-zA-Z\s]*$/, 'Full name must be characters'),
-        dob: Yup.date()
-    .required('Date of Birth is required')
-    .max(new Date(new Date().setFullYear(new Date().getFullYear() - 16)), 'You must be at least 16 years old'),    idCard: Yup.string().required('ID Card is required').min(9, 'ID Card must be at least 9 characters'),
+    fullName: Yup.string().required('Full name is required').matches(/^[a-zA-Z\s]*$/, 'Full name must be characters'),
+    dob: Yup.date().required('Date of Birth is required').max(new Date(new Date().setFullYear(new Date().getFullYear() - 16)), 'You must be at least 16 years old'),
+    idCard: Yup.string().required('ID Card is required').min(9, 'ID Card must be at least 9 characters'),
     gender: Yup.string().required('Gender is required'),
     phoneNumber: Yup.string().required('Phone Number is required').min(10, 'Phone Number must be at least 10 characters'),
     email: Yup.string().email('Invalid email format').required('Email is required').matches(/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/, 'Invalid email format'),
     address: Yup.string().required('Address is required').matches(/^[a-zA-Z0-9\s]*$/, 'Address must be characters'),
-    confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match')
-        .required('Confirm Password is required')
+    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required')
 });
 
 export function Register() {
@@ -32,11 +29,8 @@ export function Register() {
 
     const handleSubmit = async (values) => {
         setLoading(true);
-        // Handle form submission
-        setLoading(false);
-
         try {
-            const userData = await AuthService.register(values.username, values.password,values.email,values.fullName,values.dob,values.idCard,values.address,values.phoneNumber,values.gender);
+            const userData = await AuthService.register(values.username, values.password, values.email, values.fullName, values.dob, values.idCard, values.address, values.phoneNumber, values.gender);
             if (userData) {
                 const userDataLogin = await AuthService.login(values.username, values.password);
                 localStorage.setItem('token', userDataLogin.token);
@@ -54,12 +48,15 @@ export function Register() {
                     progress: undefined,
                     theme: 'dark',
                     style: {
-                        backgroundColor: '#000000', color: 'rgba(237,167,0,0.98)', fontWeight: 'bold', fontSize: '16px'
+                        backgroundColor: '#000000',
+                        color: 'rgba(237,167,0,0.98)',
+                        fontWeight: 'bold',
+                        fontSize: '16px'
                     }
                 });
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setError(error.message);
         } finally {
             setTimeout(() => {
@@ -69,15 +66,14 @@ export function Register() {
     };
 
     return (
-    <div className="bg-gradient-primary" style={{
+        <div className="bg-gradient-primary" style={{
             background: "url(https://firebasestorage.googleapis.com/v0/b/ryukingdom-48b31.appspot.com/o/HotelHeader.png?alt=media&token=96226faf-f43b-4302-9408-7b6ad8654963) center / cover no-repeat, var(--bs-border-color-translucent)",
             borderColor: "var(--bs-emphasis-color)"
         }}>
             <div className="container">
                 <div className="row justify-content-center">
-                    <div className="col-md-9 col-lg-12 col-xl-10 align-items-center"
-                         style={{transform: "scale(1.17)", margin: "160px"}}>
-                        <div className="card shadow-lg o-hidden border-0 my-5" style={{borderRadius: "29.6px"}}>
+                    <div className="col-md-9 col-lg-12 col-xl-10 align-items-center" style={{ transform: "scale(1.17)", margin: "160px" }}>
+                        <div className="card shadow-lg o-hidden border-0 my-5" style={{ borderRadius: "29.6px" }}>
                             <div className="card-body p-0">
                                 <div className="row">
                                     <div className="col-lg-6 d-none d-lg-flex">
@@ -86,7 +82,7 @@ export function Register() {
                                             opacity: "0.86"
                                         }}></div>
                                     </div>
-                                    <div className="col-lg-6" style={{background: "var(--bs-body-bg)"}}>
+                                    <div className="col-lg-6" style={{ background: "var(--bs-body-bg)" }}>
                                         <div className="p-5">
                                             <div className="text-center">
                                                 <h4 className="text-dark mb-4">Welcome To Ryu!</h4>
@@ -138,22 +134,15 @@ export function Register() {
                                                             </div>
                                                         </div>
                                                         <div className="mb-3">
-                                                            <div className="btn-group" role="group"
-                                                                 aria-label="Basic radio toggle button group" style={{
+                                                            <div className="btn-group" role="group" aria-label="Basic radio toggle button group" style={{
                                                                 width: "200px",
                                                                 height: "45.6px",
                                                                 margin: "0 0 0 px"
                                                             }}>
-                                                                <Field type="radio" id="btnradio1" className="btn-check"
-                                                                       name="gender" value="1" />
-                                                                <label className="form-label btn btn-outline-dark"
-                                                                       htmlFor="btnradio1"
-                                                                       style={{width: "102px"}}>Male</label>
-                                                                <Field type="radio" id="btnradio2" className="btn-check"
-                                                                       name="gender" value="2" />
-                                                                <label className="form-label btn btn-outline-dark"
-                                                                       htmlFor="btnradio2"
-                                                                       style={{width: "102px"}}>Female</label>
+                                                                <Field type="radio" id="btnradio1" className="btn-check" name="gender" value="1" />
+                                                                <label className="form-label btn btn-outline-dark" htmlFor="btnradio1" style={{ width: "102px" }}>Male</label>
+                                                                <Field type="radio" id="btnradio2" className="btn-check" name="gender" value="2" />
+                                                                <label className="form-label btn btn-outline-dark" htmlFor="btnradio2" style={{ width: "102px" }}>Female</label>
                                                                 <ErrorMessage name="gender" component="div" className="error-message" />
                                                             </div>
                                                         </div>
@@ -232,21 +221,17 @@ export function Register() {
                                                             color: "rgb(255,255,255)",
                                                             background: "var(--bs-emphasis-color)",
                                                             borderColor: "var(--bs-btn-hover-color)"
-                                                        }} disabled={!values.username || !values.password || loading}
-                                                        >
+                                                        }} disabled={!values.username || !values.password || loading}>
                                                             {loading ? 'Loading...' : 'Register'}
                                                         </button>
                                                     </Form>
                                                 )}
                                             </Formik>
                                         </div>
-                                        <p className=" d-block  w-100 mb-3">You have account ? ->
-                                            <Link  to={"/login"}
-                                                   style={{
-                                                       color: "rgb(0,0,0)",
-                                                       borderColor: "var(--bs-btn-hover-color)"
-                                                   }}>Login</Link>
-                                        </p>
+                                        <p className="d-block w-100 mb-3">You have an account? -> <Link to={"/login"} style={{
+                                            color: "rgb(0,0,0)",
+                                            borderColor: "var(--bs-btn-hover-color)"
+                                        }}>Login</Link></p>
                                     </div>
                                 </div>
                             </div>
