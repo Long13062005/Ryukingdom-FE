@@ -23,7 +23,6 @@ const initialValues = {
 
 export function Password() {
     const navigator = useNavigate();
-    const [profileInfo, setProfileInfo] = useState({});
     const [loading, setLoading] = useState(false);
 
 

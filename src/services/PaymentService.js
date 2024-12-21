@@ -3,9 +3,26 @@ import axios from "axios";
 class PaymentService {
     static BASE_URL = "http://localhost:1010"
 
-    static async getPaymentList(token){
+    static async getPaymentListPage(token,page,size,name){
         try{
             const response = await axios.get(`${PaymentService.BASE_URL}/api/payments`,
+                {
+                    params: {
+                        page: page,
+                        name: name,
+                        size: size
+                    },
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+
+    static async getPaymentList(token){
+        try{
+            const response = await axios.get(`${PaymentService.BASE_URL}/api/payments/all`,
                 {
                     headers: {Authorization: `Bearer ${token}`}
                 })

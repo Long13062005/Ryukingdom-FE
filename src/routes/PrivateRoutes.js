@@ -3,6 +3,7 @@ import AuthService from "../services/AuthService";
 import Swal from "sweetalert2";
 export const PrivateRoutes = () => {
     if (!AuthService.isAuthenticated() ) {
+        localStorage.clear();
         Swal.fire({
             icon: 'warning',
             title: 'Please login first to use this feature',

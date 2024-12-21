@@ -3,9 +3,25 @@ import axios from "axios";
 class FacilityService {
     static BASE_URL = "http://localhost:1010"
 
-    static async getFacilityList(token){
+    static async getFacilityList(token,page,size,name){
         try{
             const response = await axios.get(`${FacilityService.BASE_URL}/api/facilities`,
+                {
+                    params: {
+                        page: page,
+                        name: name,
+                        size: size
+                    },
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+    static async getFacilitiesNoPage(token){
+        try{
+            const response = await axios.get(`${FacilityService.BASE_URL}/api/facilities/all`,
                 {
                     headers: {Authorization: `Bearer ${token}`}
                 })

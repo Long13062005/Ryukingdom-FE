@@ -4,6 +4,8 @@ import React, {useEffect, useState} from "react";
 import * as Yup from "yup";
 import AuthService from "../../services/AuthService";
 import {toast} from "react-toastify";
+import {Footer} from "../../components/layout/Footer";
+import {Header} from "../../components/layout/Header";
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required('Username is required').min(6, 'Username must be at least 6 characters').matches(/^[a-zA-Z0-9]*$/, 'Username must be characters'),
@@ -69,6 +71,7 @@ export function Register() {
     };
 
     return (
+        <>
     <div className="bg-gradient-primary" style={{
             background: "url(https://firebasestorage.googleapis.com/v0/b/ryukingdom-48b31.appspot.com/o/HotelHeader.png?alt=media&token=96226faf-f43b-4302-9408-7b6ad8654963) center / cover no-repeat, var(--bs-border-color-translucent)",
             borderColor: "var(--bs-emphasis-color)"
@@ -255,5 +258,7 @@ export function Register() {
                 </div>
             </div>
         </div>
+        <Footer/>
+        </>
     );
 }

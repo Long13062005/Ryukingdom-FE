@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import {useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
+import React, { useEffect, useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
 import FacilityService from "../../services/FacilityService";
+import { ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
+import { storage } from "../../firebaseConfig";
+import { v4 } from "uuid";
 
 const FacilitySchema = Yup.object().shape({
     name: Yup.string().required('Name is required').matches(/^[a-zA-Z0-9\s]+$/, "Only alphabets and numbers are allowed for this field "),
@@ -24,11 +27,35 @@ export function FacilityAdd() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [img, setImg] = useState(null);
+    const [imgUrl, setImgUrl] = useState([]);
+
+    const uploadFile = async () => {
+        if (img !== null) {
+            const imgRef = ref(storage, `images/${img.name + v4()}`);
+            const snapshot = await uploadBytes(imgRef, img);
+            const url = await getDownloadURL(snapshot.ref);
+            return url;
+        }
+        return null;
+    };
+
+    useEffect(() => {
+        listAll(ref(storage, "images")).then(imgs => {
+            imgs.items.forEach(val => {
+                getDownloadURL(val).then(url => {
+                    setImgUrl(data => [...data, url]);
+                });
+            });
+        });
+    }, []);
+
     useEffect(() => {
         document.title = "Add for Facility";
         fetchTypeFacility();
         fetchTypeRent();
     }, []);
+
     const fetchTypeFacility = async () => {
         try {
             const response = await FacilityService.getTypeFacilityList(localStorage.getItem('token'));
@@ -36,7 +63,8 @@ export function FacilityAdd() {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+
     const fetchTypeRent = async () => {
         try {
             const response = await FacilityService.getTypeRentList(localStorage.getItem('token'));
@@ -44,27 +72,32 @@ export function FacilityAdd() {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const handleSubmitFacility = async (values) => {
         setLoading(true);
-        console.log(values);
         try {
+            const url = await uploadFile();
+            if (url) {
+                values.imgUrl = url;
+            } else {
+                values.imgUrl = null;
+            }
             await FacilityService.createFacility(values, localStorage.getItem('token'));
-                navigate('/user/facility');
-                toast.success("Added successfully", {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'dark',
-                    style: {
-                        backgroundColor: '#000000', color: 'rgba(237,167,0,0.98)', fontWeight: 'bold', fontSize: '16px'
-                    }
-                });
+            navigate('/user/facility');
+            toast.success("Added successfully", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark',
+                style: {
+                    backgroundColor: '#000000', color: 'rgba(237,167,0,0.98)', fontWeight: 'bold', fontSize: '16px'
+                }
+            });
         } catch (error) {
             console.log(error);
             setError(error.message);
@@ -75,20 +108,24 @@ export function FacilityAdd() {
         }
     };
 
+    const handleFileChange = (event) => {
+        setImg(event.currentTarget.files[0]);
+    };
 
-    return (<div>
-            <div className="row justify-content-center" style={{margin: "30px 0 30px 0"}}>
+    return (
+        <div>
+            <div className="row justify-content-center" style={{ margin: "30px 0 30px 0" }}>
                 <div className="col-xl-10 col-xxl-12">
                     <div className="card shadow">
                         <div
                             className="card-header d-flex flex-wrap justify-content-center align-items-center justify-content-sm-between gap-3"
-                            style={{background: "#171821"}}>
-                            <h5 className="display-6 text-nowrap text-capitalize mb-0" style={{color: "#c1931f"}}>Add
-                                Facility&nbsp;</h5>
+                            style={{ background: "#171821" }}>
+                            <h5 className="display-6 text-nowrap text-capitalize mb-0" style={{ color: "#c1931f" }}>Add Facility&nbsp;</h5>
                         </div>
-                        <div className="card-body" style={{background: "#171821"}}>
+                        <div className="card-body" style={{ background: "#171821" }}>
                             <Formik
                                 initialValues={{
+                                    imgUrl: '',
                                     name: '',
                                     standardRoom: '',
                                     poolArea: '',
@@ -106,7 +143,11 @@ export function FacilityAdd() {
                                 {({ isSubmitting }) => (
                                     <Form>
                                         <div className="mb-3">
-                                            <Field type="text" name="name" className="form-control cp" placeholder="Name Facility"  />
+                                            <input type="file" name="imgUrl" className="form-control cp" onChange={handleFileChange} />
+                                            <ErrorMessage name="imgUrl" component="div" className="error-message" />
+                                        </div>
+                                        <div className="mb-3">
+                                            <Field type="text" name="name" className="form-control cp" placeholder="Name Facility" />
                                             <ErrorMessage name="name" component="div" className="error-message" />
                                         </div>
                                         <div className="mb-3">
@@ -130,7 +171,7 @@ export function FacilityAdd() {
                                             <ErrorMessage name="maxPeople" component="div" className="error-message" />
                                         </div>
                                         <div className="mb-3">
-                                            <Field type="text" name="description" className="form-control cp" placeholder="Description Facility"/>
+                                            <Field type="text" name="description" className="form-control cp" placeholder="Description Facility" />
                                             <ErrorMessage name="description" component="div" className="error-message" />
                                         </div>
                                         <div className="mb-3">
@@ -165,5 +206,6 @@ export function FacilityAdd() {
                     </div>
                 </div>
             </div>
-        </div>);
+        </div>
+    );
 }

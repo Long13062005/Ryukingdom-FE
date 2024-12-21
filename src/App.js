@@ -36,23 +36,26 @@ import {ContractUpdateDashboard} from "./features/contract/ContractUpdateDashboa
 import AuthService from "./services/AuthService";
 import {ReportDashboard} from "./features/report/ReportDashboard";
 import {ErrorPage} from "./components/layout/ErrorPage";
+import {BookingDashboard} from "./features/booking/BookingDashboard";
 
 
 function App() {
     return (<>
             <BrowserRouter>
                 <Routes>
+                    <Route path="/" element={<Home/>}/>
 {/*Public routes*/}
                 <Route element={<PublicRoutes/>}>
-                    <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
-
                 </Route>
         {/*For admin and staff*/}
                     <Route element={<PrivateRoutes/>}>
                         {!AuthService.isCustomer() ? (
                             <>
+                                {/*Booking*/}
+                                <Route path="/booking" element={<BookingDashboard/>}/>
+                                <Route path="/booking/:id" element={<BookingDashboard/>}/>
                                 {/*facility*/}
                                 <Route path="/user/facility" element={<FacilityDashboard/>}/>
                                 <Route path="/user/facility/create" element={<FacilityAddDashboard/>}/>

@@ -1,22 +1,21 @@
-import {SideBar} from "../../components/layout/SideBar";
-import {FooterDashboard} from "../../components/layout/FooterDashboard";
-import {useEffect} from "react";
-import {Book} from "./Book";
-import {BookList} from "./BookList";
+import React, {useEffect} from "react";
+import {BookingForm} from "./BookingForm";
+import {Header} from "../../components/layout/Header";
+import {Footer} from "../../components/layout/Footer";
 
 export function BookingDashboard() {
     useEffect(() => {
-        document.title = "Profile";
+        document.title = "Booking";
     }, []);
     return (<>
-        <div id="page-top">
-            <div id="wrapper">
-                <SideBar/>
-                {/*{localStorage.getItem('role') === 'ROLE_CUSTOMER' ? <Book/> : <BookList/>}*/}
-                <BookList/>
+        <>
+            <div id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="54">
+                <Header />
+                <div className="container" style={{margin:"10% 0 5% 0"}}>
+                    <BookingForm />
+                </div>
+                <Footer />
             </div>
-            <FooterDashboard/>
-
-        </div>
+        </>
     </>);
 }

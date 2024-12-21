@@ -14,6 +14,28 @@ class ProfileService    {
             throw err;
         }
     }
+    static async changeAvatar(values,token){
+        try{
+            const response = await axios.put(`${ProfileService.BASE_URL}/adminstaffcus/avatar/update`, values,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+    static async getAvatar(token){
+        try{
+            const response = await axios.get(`${ProfileService.BASE_URL}/adminstaffcus/avatar`,
+                {
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
 
     static async updateYourPassword(token, userData){
         try{

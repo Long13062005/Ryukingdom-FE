@@ -4,6 +4,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as Yup from "yup";
 import FacilityService from "../../services/FacilityService";
+import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
+import {storage} from "../../firebaseConfig";
+import {v4} from "uuid";
 
 const FacilitySchema = Yup.object().shape({
     name: Yup.string().required('Name is required').matches(/^[a-zA-Z0-9\s]+$/, "Only alphabets and numbers are allowed for this field "),
@@ -26,6 +29,27 @@ export function FacilityUpdate() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const {id} = useParams();
+    const [img, setImg] = useState(null);
+    const [imgUrl, setImgUrl] = useState([]);
+
+    const uploadFile = async () => {
+        if (img !== null) {
+            const imgRef = ref(storage, `images/${img.name + v4()}`);
+            const snapshot = await uploadBytes(imgRef, img);
+            const url = await getDownloadURL(snapshot.ref);
+            return url;
+        }
+        return null;
+    };
+    useEffect(() => {
+        listAll(ref(storage, "images")).then(imgs => {
+            imgs.items.forEach(val => {
+                getDownloadURL(val).then(url => {
+                    setImgUrl(data => [...data, url]);
+                });
+            });
+        });
+    }, []);
     useEffect(() => {
         document.title = "Add for Facility";
         fetchTypeFacility();
@@ -61,6 +85,12 @@ export function FacilityUpdate() {
     const handleSubmitFacility = async (values) => {
         setLoading(true);
         try {
+            const url = await uploadFile();
+            if (url) {
+                values.imgUrl = url;
+            } else {
+                values.imgUrl = null;
+            }
             await FacilityService.updateFacility(values, localStorage.getItem('token'),id);
                 navigate('/user/facility');
                 toast("Updated successfully", {
@@ -85,6 +115,9 @@ export function FacilityUpdate() {
             }, 3000);
         }
     };
+    const handleFileChange = (event) => {
+        setImg(event.target.files?.[0]);
+    };
 
 
     return (<div>
@@ -100,6 +133,7 @@ export function FacilityUpdate() {
                         <div className="card-body" style={{background: "#171821"}}>
                             <Formik
                                 initialValues={{
+                                    imgUrl: facility.imgUrl || '',
                                     name: facility.name || '',
                                     standardRoom: facility.standardRoom || '',
                                     poolArea: facility.poolArea || 0,
@@ -115,8 +149,11 @@ export function FacilityUpdate() {
                                 validationSchema={FacilitySchema}
                                 onSubmit={handleSubmitFacility}
                             >
-                                {({isValid, dirty}) => (<Form>
-
+                                {({isValid}) => (<Form>
+                                        <div className="mb-3">
+                                            <input type="file" name="imgUrl" className="form-control cp" onChange={handleFileChange} />
+                                            <ErrorMessage name="imgUrl" component="div" className="error-message" />
+                                        </div>
                                         <div className="mb-3">
                                             <Field type="text" name="name" className="form-control cp" placeholder="Name Facility"  />
                                             <ErrorMessage name="name" component="div" className="error-message" />
@@ -167,7 +204,7 @@ export function FacilityUpdate() {
                                             </Field>
                                             <ErrorMessage name="rentType" component="div" className="error-message" />
                                         </div>
-                                        <button className="btn-profile" type="submit" disabled={!isValid || !dirty || loading}>
+                                        <button className="btn-profile" type="submit" disabled={!isValid || loading}>
                                             {loading ? 'Loading...' : 'Save the changes'}
                                         </button>
                                     </Form>

@@ -3,10 +3,15 @@ import axios from "axios";
 class EmployeeService {
     static BASE_URL = "http://localhost:1010"
 
-    static async getEmployeeList(token){
+    static async getEmployeeList(token,page,size,name){
         try{
             const response = await axios.get(`${EmployeeService.BASE_URL}/api/employee`,
                 {
+                    params: {
+                        page: page,
+                        name: name,
+                        size: size
+                    },
                     headers: {Authorization: `Bearer ${token}`}
                 })
             return response.data;

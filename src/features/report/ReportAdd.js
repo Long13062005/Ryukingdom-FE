@@ -79,7 +79,7 @@ export function ReportAdd() {
                             >
                                 {({isSubmitting, setFieldValue}) => (<Form>
                                         <div className="mb-3">
-                                            <Field type="text" name="employeeName" className="form-control cp"
+                                            <Field type="text" name="employeeName" className="form-control cp text-warning"
                                                    disabled
                                                    placeholder="employeeName" style={{background:"black"}}/>
                                             <ErrorMessage name="employeeName" component="div" className="error-message"/>

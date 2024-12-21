@@ -48,7 +48,7 @@ export function ContractUpdate() {
     }
     const fetchFacility = async () => {
         try {
-            const response = await facilityService.getFacilityList(localStorage.getItem('token'));
+            const response = await facilityService.getFacilitiesNoPage(localStorage.getItem('token'));
             setFacilities(response);
         } catch (error) {
             console.log(error);
@@ -56,7 +56,7 @@ export function ContractUpdate() {
     }
     const fetchCustomer = async () => {
         try {
-            const response = await customerService.getCustomerList(localStorage.getItem('token'));
+            const response = await customerService.getCustomerListNoPage(localStorage.getItem('token'));
             setCustomers(response);
         } catch (error) {
             console.log(error);

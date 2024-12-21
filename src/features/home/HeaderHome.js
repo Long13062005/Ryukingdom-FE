@@ -1,4 +1,5 @@
 import "../../assets/css/btnHotel.css";
+import {Link} from "react-router-dom";
 
 const exRoom = "https://firebasestorage.googleapis.com/v0/b/ryukingdom-48b31.appspot.com/o/ex-room.jpg?alt=media&token=e832ebf7-d112-4de3-a5b4-a2a54535be6c";
 const dexRoom = "https://firebasestorage.googleapis.com/v0/b/ryukingdom-48b31.appspot.com/o/dex-room.jpg?alt=media&token=a169c143-a513-48d4-99cc-40d165114d88";
@@ -8,7 +9,6 @@ export function HeaderHome() {
     return (<>
             <header className="masthead" style={{
                 background: "url("+ HotelHeader+ ") center / cover",
-                filter: "contrast(153%)"
             }}>
                 <div className="container">
                     <div className="row">
@@ -39,9 +39,11 @@ export function HeaderHome() {
                                         width: "382px"
                                     }}>Vietnam</span>
                                 </div>
-                                <div className="intro-lead-in" style={{margin: "100px 0 0px 0"}}>
-                                    <a className="btn btn-primary btn-xl text-uppercase" role="button" href="#services"
-                                       style={{background: "#f3bc00"}}>Tell me more</a>
+                                <div className="intro-lead-in" style={{margin: "10px 0 0px 0"}}>
+                                    <a className="btn btn-outline-primary btn-xl text-uppercase m-1" role="button" href="#services"
+                                       >Tell me more</a>
+                                    <Link className="btn btn-outline-primary btn-xl text-uppercase m-1" role="button" to="/booking"
+                                       >Book now</Link>
                                 </div>
                             </div>
                         </div>
