@@ -35,7 +35,7 @@ export function ContractAdd() {
     }, []);
     const fetchFacility = async () => {
         try {
-            const response = await facilityService.getFacilityList(localStorage.getItem('token'));
+            const response = await facilityService.getFacilitiesNoPage(localStorage.getItem('token'));
             setFacilities(response);
         } catch (error) {
             console.log(error);
@@ -43,7 +43,7 @@ export function ContractAdd() {
     }
     const fetchCustomer = async () => {
         try {
-            const response = await customerService.getCustomerList(localStorage.getItem('token'));
+            const response = await customerService.getCustomerListNoPage(localStorage.getItem('token'));
             setCustomers(response);
         } catch (error) {
             console.log(error);
@@ -152,7 +152,7 @@ export function ContractAdd() {
                                         <ErrorMessage name="payment" component="div" className="error-message"/>
                                     </div>
                                     <div className="mb-3">
-                                        <Field type="text" name="employeeName" disabled className="form-control cp"
+                                        <Field type="text" name="employeeName" disabled className="form-control cp text-warning bg-dark"
                                                placeholder="Checked by"/>
                                         <ErrorMessage name="employeeName" component="div" className="error-message"/>
                                     </div>
@@ -174,7 +174,7 @@ export function ContractAdd() {
                                         <ErrorMessage name="status" component="div" className="error-message"/>
                                     </div>
                                 <div className="mb-3">
-                                    <Field type="date" name="historyCheck" disabled className="form-control cp" placeholder={"History Check"}>
+                                    <Field type="date" name="historyCheck" disabled className="form-control cp text-warning bg-dark" placeholder={"History Check"}>
                                     </Field>
                                     <ErrorMessage name="historyCheck" component="div" className="error-message"/>
                                 </div>

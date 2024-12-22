@@ -9,15 +9,20 @@ export function EmployeeList() {
     const [employees, setEmployees] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
+    const [page, setPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const size = 4;
+    const [nameSearch, setNameSearch] = useState("");
 
     useEffect(() => {
-        fetchEmployees();
-    }, []);
+        fetchEmployees(page,size,nameSearch);
+    }, [page,size,nameSearch]);
 
-    const fetchEmployees = async () => {
+    const fetchEmployees = async (page,size,nameSearch) => {
         try {
-            const data = await EmployeeService.getEmployeeList(localStorage.getItem("token"));
-            setEmployees(data);
+            const data = await EmployeeService.getEmployeeList(localStorage.getItem("token"), page, size, nameSearch);
+            setTotalPages(data.totalPages);
+            setEmployees(data.content);
         } catch (error) {
             console.error("Failed to fetch Employees:", error);
         }
@@ -72,16 +77,22 @@ export function EmployeeList() {
     });
     const handleSearch = async (values) => {
         try {
-            if (values.search === "") {
-                fetchEmployees();
+            setNameSearch(values.search);
+            if (nameSearch === "") {
+                await fetchEmployees(0, size);
                 return;
             }
-            const data = await EmployeeService.searchEmployeeList(localStorage.getItem("token"),values.search);
-            setEmployees(data);
+            const data = await EmployeeService.getEmployeeList(localStorage.getItem("token"), 0, 4, nameSearch);
+            setTotalPages(data.totalPages);
+            setEmployees(data.content);
         } catch (error) {
-            console.error("Failed to search Employees:", error);
-        }
+            await Swal.fire({
+                icon: "error", title: "No Employees found", showConfirmButton: false, timer: 1500,
+            });        }
     }
+    const handlePageChange = (newPage) => {
+        setPage(newPage);
+    };
     return (
         <div>
             <div className="row justify-content-center" style={{margin: "30px 0 30px 0"}}>
@@ -110,6 +121,7 @@ export function EmployeeList() {
                                 <table className="table table-striped table-hover">
                                     <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Name</th>
                                         <th>Date of birth</th>
                                         <th>Salary</th>
@@ -127,6 +139,13 @@ export function EmployeeList() {
                                         {employees.length > 0 ? (
                                             employees.map((employee, index) => (
                                                 <tr key={employee.id}>
+                                                    <td>
+                                                        <img
+                                                            src={employee.imgUrl == null || employee.imgUrl === '' ? 'https://firebasestorage.googleapis.com/v0/b/ryukingdom-48b31.appspot.com/o/avatar.webp?alt=media&token=d95b5759-3456-4c46-9d78-4766f9512868' : employee.imgUrl}
+                                                            alt={employee.name}
+                                                            style={{width: "50px", height: "50px"}}
+                                                        />
+                                                    </td>
                                                     <td>{employee.name}</td>
                                                     <td>{employee.dob}</td>
                                                     <td>{employee.salary}</td>
@@ -156,7 +175,37 @@ export function EmployeeList() {
                             </div>
                         </div>
                         <div className="card-footer" style={{background: "#171821"}}>
-                            {/*for pagenaton*/}
+
+                            <ul className="pagination">
+                                <li className="page-item">
+                                    <button
+                                        className="page-link bg-dark"
+                                        onClick={() => handlePageChange(page > 0 ? page - 1 : 0)}
+                                        disabled={page === 0}
+                                    >
+                                        Previous
+                                    </button>
+                                </li>
+                                {[...Array(totalPages)].map((_, i) => (
+                                    <li key={i} className={`page-item ${page === i ? "active" : ""}`}>
+                                        <button
+                                            className="page-link bg-dark"
+                                            onClick={() => handlePageChange(i)}
+                                        >
+                                            {i + 1}
+                                        </button>
+                                    </li>
+                                ))}
+                                <li className="page-item">
+                                    <button
+                                        className="page-link bg-dark"
+                                        onClick={() => handlePageChange(page < totalPages - 1 ? page + 1 : page)}
+                                        disabled={page === totalPages - 1}
+                                    >
+                                        Next
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

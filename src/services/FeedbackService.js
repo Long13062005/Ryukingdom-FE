@@ -3,9 +3,24 @@ import axios from "axios";
 class FeedbackService {
     static BASE_URL = "http://localhost:1010"
 
-    static async fetchFeedbackList(token){
+    static async fetchFeedbackListPage(token,page,size){
         try{
             const response = await axios.get(`${FeedbackService.BASE_URL}/api/feedbacks`,
+                {
+                    params: {
+                        page: page,
+                        size: size
+                    },
+                    headers: {Authorization: `Bearer ${token}`}
+                })
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+    static async fetchFeedbackList(token){
+        try{
+            const response = await axios.get(`${FeedbackService.BASE_URL}/api/feedbacks/all`,
                 {
                     headers: {Authorization: `Bearer ${token}`}
                 })

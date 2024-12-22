@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 import {toast} from "react-toastify";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import AuthService from "../../services/AuthService";
+import {Footer} from "../../components/layout/Footer";
+import {Header} from "../../components/layout/Header";
 
 const validationSchema = Yup.object().shape({
     username: Yup.string()
@@ -61,7 +63,11 @@ export function Login() {
                 localStorage.setItem('token', userData.token);
                 localStorage.setItem('role', userData.roles.name);
                 localStorage.setItem('username', values.username);
-                navigate('/user/profile');
+                if(userData.roles.name === 'ROLE_CUSTOMER'){
+                    navigate('/');
+                } else {
+                    navigate('/user/profile');
+                }
                 toast("Login successfully", {
                     position: "top-right",
                     autoClose: 3000,
@@ -91,7 +97,8 @@ export function Login() {
     };
 
     return (<>
-        <div className="bg-full" style={{
+        <Header/>
+        <div  style={{
             background: "url(https://firebasestorage.googleapis.com/v0/b/ryukingdom-48b31.appspot.com/o/HotelHeader.png?alt=media&token=96226faf-f43b-4302-9408-7b6ad8654963) center  / cover, var(--bs-border-color-translucent)",
             borderColor: "var(--bs-emphasis-color)"
         }}>
@@ -109,9 +116,6 @@ export function Login() {
                                         }}></div>
                                     </div>
                                     <div className="col-lg-6" style={{background: "var(--bs-body-bg)"}}>
-                                        <div className="text-dark mt-3">
-                                            <Link to={"/"} className="text-dark mb-4">Go back</Link>
-                                        </div>
                                         <div className="p-5 mb-2">
 
                                             <Formik initialValues={{
@@ -176,5 +180,6 @@ export function Login() {
                 </div>
             </div>
         </div>
+        <Footer/>
     </>);
 }

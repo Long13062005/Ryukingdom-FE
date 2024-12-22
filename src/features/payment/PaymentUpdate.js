@@ -32,7 +32,7 @@ export function PaymentUpdate() {
 
     const fetchCustomer = async () => {
         try {
-            const response = await CustomerService.getCustomerList(localStorage.getItem('token'));
+            const response = await CustomerService.getCustomerListNoPage(localStorage.getItem('token'));
             setCustomers(response);
         } catch (error) {
             console.log(error);

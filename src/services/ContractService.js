@@ -3,10 +3,14 @@ import axios from "axios";
 class ContractService {
     static BASE_URL = "http://localhost:1010"
 
-    static async fetchContracts(token){
+    static async fetchContracts(token,page, size){
         try{
             const response = await axios.get(`${ContractService.BASE_URL}/api/contracts`,
                 {
+                    params: {
+                        page: page,
+                        size: size
+                    },
                     headers: {Authorization: `Bearer ${token}`}
                 })
             return response.data;

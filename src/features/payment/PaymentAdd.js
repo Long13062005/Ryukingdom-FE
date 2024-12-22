@@ -28,7 +28,7 @@ export function PaymentAdd() {
 
     const fetchCustomer = async () => {
         try {
-            const response = await CustomerService.getCustomerList(localStorage.getItem('token'));
+            const response = await CustomerService.getCustomerListNoPage(localStorage.getItem('token'));
             setCustomers(response);
         } catch (error) {
             console.log(error);
@@ -94,7 +94,7 @@ export function PaymentAdd() {
                                             <ErrorMessage name="title" component="div" className="error-message"/>
                                         </div>
                                         <div className="mb-3">
-                                            <Field type="text" name="employeeName" className="form-control cp"
+                                            <Field type="text" name="employeeName" className="form-control cp text-warning bg-dark"
                                                    disabled={true}
                                                    placeholder="Employee Name"/>
                                             <ErrorMessage name="employeeName" component="div"

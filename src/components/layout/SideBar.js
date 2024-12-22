@@ -37,7 +37,11 @@ export function SideBar() {
             </div>
             <hr className="sidebar-divider my-0"/>
             <ul className="navbar-nav text-light" id="accordionSidebar">
-                <li className="nav-item"></li>
+                <li className="nav-item">
+                    <NavLink className="nav-link" to="/">
+                        <span style={{color: 'var(--bs-yellow)'}}>Home</span>
+                    </NavLink>
+                </li>
                 <li className="nav-item">
                     <NavLink className="nav-link" to="/user/profile">
                         <span style={{color: 'var(--bs-yellow)'}}>Dashboard</span>

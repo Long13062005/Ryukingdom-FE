@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as Yup from "yup";
 import FeedbackService from "../../services/FeedbackService";
+import '../../assets/css/ratingCss.css';
 
 const FeedbackSchema = Yup.object().shape({
     customerName: Yup.string()
@@ -81,16 +82,16 @@ export function FeedbackAdd() {
                                             <ErrorMessage name="customerName" component="div" className="error-message"/>
                                         </div>
                                         <div className="mb-3">
-                                            <label htmlFor="rating-group" className="form-label text-light">Rating</label>
-                                            <div role="group" aria-labelledby="rating-group">
+                                            <label htmlFor="rating-group" className="form-label">Rating</label>
+                                            <div role="group" aria-labelledby="rating-group" className="rating-group">
                                                 {[1, 2, 3, 4, 5].map((value) => (
-                                                    <label key={value} className="form-check-label text-light">
-                                                        <Field type="radio" name="rating" value={value.toString()}
-                                                               className="form-check-input"/>
-                                                        {value}
-                                                    </label>))}
+                                                    <label key={value} className="rating-label">
+                                                        <Field type="radio" name="rating" value={value.toString()} className="rating-input" />
+                                                        <span className="rating-icon">{value}</span>
+                                                    </label>
+                                                ))}
                                             </div>
-                                            <ErrorMessage name="rating" component="div" className="error-message"/>
+                                            <ErrorMessage name="rating" component="div" className="error-message" />
                                         </div>
                                         <div className="mb-3">
                                             <Field as="textarea" name="description" className="form-control cp"

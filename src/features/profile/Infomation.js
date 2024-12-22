@@ -51,163 +51,161 @@ export function Infomation() {
     };
 
     return (<div className="card shadow mb-3">
-            <div className="card-header py-3" style={{background: "rgba(23,24,33,0.91)"}}>
-                <p className="m-0 fw-bold" style={{color: "#c1931f"}}>Your information</p>
-            </div>
-            <div className="card-body" style={{background: "rgba(23,24,33,0.91)"}}>
-                <Formik
-                    initialValues={
-
-                        {
-                            fullName: profileInfo.fullName || '',
-                            dob: profileInfo.dob || '',
-                            phoneNumber: profileInfo.phoneNumber || '',
-                            email: profileInfo.email || '',
-                            address: profileInfo.address || '',
-                            idCard: profileInfo.idCard || '',
-                            typeCustomer: profileInfo.typeCustomer || '',
-                            division: profileInfo.division || '',
-                            position: profileInfo.position || '',
-                            degree: profileInfo.education || '',
-                            role: profileInfo.role || ''
-                        }}
-                    enableReinitialize
-                    validationSchema={validationSchema}
-                    onSubmit={handleSubmit}
-                >
-                    {({isValid, dirty}) => (<Form>
-                            <div className="row">
-                                <div className="col">
-                                    <div className="mb-3">
-                                        <label className="form-label" style={{color: "#c1931f"}}
-                                               htmlFor="fullName"><strong>Full
-                                            Name</strong></label>
-                                        <Field className="form-control cp" type="text" id="fullName"
-                                               placeholder="Nguyễn văn A"
-                                               name="fullName"
-                                               style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                        <ErrorMessage name="fullName" component="div" className="error-message"/>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="mb-3">
-                                        <label className="form-label" style={{color: "#c1931f"}} htmlFor="dob"><strong>Date
-                                            of
-                                            birth</strong></label>
-                                        <Field className="form-control cp" id="dob" type="date" name="dob"
-                                               style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                        <ErrorMessage name="dob" component="div" className="error-message"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <div className="mb-3">
-                                        <label className="form-label" style={{color: "#c1931f"}}
-                                               htmlFor="email"><strong>Email</strong></label>
-                                        <Field className="form-control cp" type="email" id="email"
-                                               placeholder="xxxx@gmail.com"
-                                               name="email"
-                                               style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                        <ErrorMessage name="email" component="div" className="error-message"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <div className="mb-3">
-                                        <label className="form-label" style={{color: "#c1931f"}} htmlFor="phoneNumber"><strong>Phone
-                                            number</strong></label>
-                                        <Field className="form-control cp" type="text" id="phoneNumber"
-                                               placeholder="09088xxxxx" name="phoneNumber"
-                                               style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                        <ErrorMessage name="phoneNumber" component="div" className="error-message"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <div className="mb-3">
-                                        <label className="form-label" style={{color: "#c1931f"}}
-                                               htmlFor="idCard"><strong>ID
-                                            CARD</strong></label>
-                                        <Field className="form-control cp" type="text" id="idCard"
-                                               placeholder="xxxx897x889"
-                                               name="idCard"
-                                               style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                        <ErrorMessage name="idCard" component="div" className="error-message"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <div className="mb-3">
-                                        <label className="form-label" style={{color: "#c1931f"}}
-                                               htmlFor="address"><strong>Address</strong></label>
-                                        <Field className="form-control cp" type="text" id="address"
-                                               placeholder="xxx Hoàng Diệu"
-                                               name="address"
-                                               style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                        <ErrorMessage name="address" component="div" className="error-message"/>
-                                    </div>
-                                </div>
-                            </div>
-                            {profileInfo.role === "Customer" ? (<div className="row">
-                                <div className="col">
-                                    <div className="mb-3">
-                                        <label className="form-label" style={{color: "#c1931f"}}
-                                               htmlFor="typeCustomer"><strong>Type customer</strong></label>
-                                        <Field className="form-control cp" disabled type="text" id="typeCustomer"
-                                               placeholder="Bronze" name="typeCustomer"
-                                               style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                        <ErrorMessage name="typeCustomer" component="div" className="error-message"/>
-                                    </div>
-                                </div>
-                            </div>) : (<div className="row">
-                                    <div className="col">
-                                        <div className="mb-3">
-                                            <label className="form-label" style={{color: "#c1931f"}}
-                                                   htmlFor="role"><strong>Role</strong></label>
-                                            <Field className="form-control cp" disabled type="text" id="role"
-                                                   placeholder="Nhân viên..." name="role"
-                                                   style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                            <ErrorMessage name="role" component="div" className="error-message"/>
-                                        </div>
-                                        <div className="mb-3">
-                                            <label className="form-label"  style={{color: "#c1931f"}}
-                                                   htmlFor="division"><strong>Division</strong></label>
-                                            <Field className="form-control cp" disabled type="text" id="division"
-                                                   placeholder="Nhân viên..." name="division"
-                                                   style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                            <ErrorMessage name="division" component="div" className="error-message"/>
-                                        </div>
-                                        <div className="mb-3">
-                                            <label className="form-label" style={{color: "#c1931f"}}
-                                                   htmlFor="position"><strong>Position</strong></label>
-                                            <Field className="form-control cp" disabled type="text" id="position"
-                                                   placeholder="Nhân viên..." name="position"
-                                                   style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                            <ErrorMessage name="position" component="div" className="error-message"/>
-                                        </div>
-                                        <div className="mb-3">
-                                            <label className="form-label" style={{color: "#c1931f"}}
-                                                   htmlFor="degree"><strong>Degree</strong></label>
-                                            <Field className="form-control cp" disabled type="text" id="degree"
-                                                   placeholder="Nhân viên..." name="degree"
-                                                   style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
-                                            <ErrorMessage name="degree" component="div" className="error-message"/>
-                                        </div>
-                                    </div>
-                                </div>)}
-
+        <div className="card-header py-3" style={{background: "rgba(23,24,33,0.91)"}}>
+            <p className="m-0 fw-bold" style={{color: "#c1931f"}}>Your information</p>
+        </div>
+        <div className="card-body" style={{background: "rgba(23,24,33,0.91)"}}>
+            <Formik
+                initialValues={{
+                    fullName: profileInfo.fullName || '',
+                    dob: profileInfo.dob || '',
+                    phoneNumber: profileInfo.phoneNumber || '',
+                    email: profileInfo.email || '',
+                    address: profileInfo.address || '',
+                    idCard: profileInfo.idCard || '',
+                    typeCustomer: profileInfo.typeCustomer || '',
+                    division: profileInfo.division || '',
+                    position: profileInfo.position || '',
+                    degree: profileInfo.education || '',
+                    role: profileInfo.role || ''
+                }}
+                enableReinitialize
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+            >
+                {({isValid, dirty}) => (<Form>
+                    <div className="row">
+                        <div className="col">
                             <div className="mb-3">
-                                <button className="btn-profile" type="submit" disabled={!isValid || !dirty || loading}>
-                                    {loading ? 'Loading...' : 'Save the changes'}
-                                </button>
+                                <label className="form-label" style={{color: "#c1931f"}}
+                                       htmlFor="fullName"><strong>Full
+                                    Name</strong></label>
+                                <Field className="form-control cp" type="text" id="fullName"
+                                       placeholder="Nguyễn văn A"
+                                       name="fullName"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="fullName" component="div" className="error-message"/>
                             </div>
-                        </Form>)}
-                </Formik>
-            </div>
-        </div>)
+                        </div>
+                        <div className="col">
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}} htmlFor="dob"><strong>Date
+                                    of
+                                    birth</strong></label>
+                                <Field className="form-control cp" id="dob" type="date" name="dob"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="dob" component="div" className="error-message"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}}
+                                       htmlFor="email"><strong>Email</strong></label>
+                                <Field className="form-control cp" type="email" id="email"
+                                       placeholder="xxxx@gmail.com"
+                                       name="email"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="email" component="div" className="error-message"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}} htmlFor="phoneNumber"><strong>Phone
+                                    number</strong></label>
+                                <Field className="form-control cp" type="text" id="phoneNumber"
+                                       placeholder="09088xxxxx" name="phoneNumber"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="phoneNumber" component="div" className="error-message"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}}
+                                       htmlFor="idCard"><strong>ID
+                                    CARD</strong></label>
+                                <Field className="form-control cp" type="text" id="idCard"
+                                       placeholder="xxxx897x889"
+                                       name="idCard"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="idCard" component="div" className="error-message"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}}
+                                       htmlFor="address"><strong>Address</strong></label>
+                                <Field className="form-control cp" type="text" id="address"
+                                       placeholder="xxx Hoàng Diệu"
+                                       name="address"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="address" component="div" className="error-message"/>
+                            </div>
+                        </div>
+                    </div>
+                    {profileInfo.role === "Customer" ? (<div className="row">
+                        <div className="col">
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}}
+                                       htmlFor="typeCustomer"><strong>Type customer</strong></label>
+                                <Field className="form-control cp" disabled type="text" id="typeCustomer"
+                                       placeholder="Bronze" name="typeCustomer"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="typeCustomer" component="div" className="error-message"/>
+                            </div>
+                        </div>
+                    </div>) : (<div className="row">
+                        <div className="col">
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}}
+                                       htmlFor="role"><strong>Role</strong></label>
+                                <Field className="form-control cp" disabled type="text" id="role"
+                                       placeholder="Nhân viên..." name="role"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="role" component="div" className="error-message"/>
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}}
+                                       htmlFor="division"><strong>Division</strong></label>
+                                <Field className="form-control cp" disabled type="text" id="division"
+                                       placeholder="Nhân viên..." name="division"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="division" component="div" className="error-message"/>
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}}
+                                       htmlFor="position"><strong>Position</strong></label>
+                                <Field className="form-control cp" disabled type="text" id="position"
+                                       placeholder="Nhân viên..." name="position"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="position" component="div" className="error-message"/>
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label" style={{color: "#c1931f"}}
+                                       htmlFor="degree"><strong>Degree</strong></label>
+                                <Field className="form-control cp" disabled type="text" id="degree"
+                                       placeholder="Nhân viên..." name="degree"
+                                       style={{color: "rgb(250,169,13)", background: "rgb(0,0,0)"}}/>
+                                <ErrorMessage name="degree" component="div" className="error-message"/>
+                            </div>
+                        </div>
+                    </div>)}
+
+                    <div className="mb-3">
+                        <button className="btn-profile" type="submit" disabled={!isValid || !dirty || loading}>
+                            {loading ? 'Loading...' : 'Save the changes'}
+                        </button>
+                    </div>
+                </Form>)}
+            </Formik>
+        </div>
+    </div>)
 
 }

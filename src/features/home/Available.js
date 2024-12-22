@@ -1,4 +1,3 @@
-import {Link} from "react-router-dom";
 
 export function Available(){
     return(
@@ -113,6 +112,7 @@ export function Available(){
                                           <li>Pool : No</li>
                                           <li>Price: 400$</li>
                                       </ul>
+                                      <a className="btn btn-outline-success" type="button" href={"/booking/1"}   ><i className="fa fa-book"></i><span>&nbsp;Book now</span></a>
                                       <button className="btn btn-outline-warning" type="button" data-bs-dismiss="modal"><i className="fa fa-times"></i><span>&nbsp;Close</span></button>
                                   </div>
                               </div>
@@ -154,6 +154,7 @@ export function Available(){
                                           <li>Pool : No</li>
                                           <li>Price: 500$</li>
                                       </ul>
+                                      <a className="btn btn-outline-success" type="button" href={"/booking/2"}   ><i className="fa fa-book"></i><span>&nbsp;Book now</span></a>
                                       <button className="btn btn-outline-warning" type="button" data-bs-dismiss="modal"><i className="fa fa-times"></i><span>&nbsp;Close</span></button>
                                   </div>
                               </div>
@@ -201,6 +202,7 @@ export function Available(){
                                           <li>Pool : No</li>
                                           <li>Price: 600$</li>
                                       </ul>
+                                      <a className="btn btn-outline-success" type="button" href={"/booking/3"}   ><i className="fa fa-book"></i><span>&nbsp;Book now</span></a>
                                       <button className="btn btn-outline-warning" type="button" data-bs-dismiss="modal"><i className="fa fa-times"></i><span>&nbsp;Close</span></button>
                                   </div>
                               </div>
@@ -247,6 +249,7 @@ export function Available(){
                                           <li>Pool : No</li>
                                           <li>Price: 1200$</li>
                                       </ul>
+                                      <a className="btn btn-outline-success" type="button" href={"/booking/4"}   ><i className="fa fa-book"></i><span>&nbsp;Book now</span></a>
                                       <button className="btn btn-outline-warning" type="button" data-bs-dismiss="modal"><i className="fa fa-times"></i><span>&nbsp;Close</span></button>
                                   </div>
                               </div>
@@ -294,6 +297,7 @@ export function Available(){
                                           <li>Pool : Yes</li>
                                           <li>Price: 1500$</li>
                                       </ul>
+                                      <a className="btn btn-outline-success" type="button" href={"/booking/5"}   ><i className="fa fa-book"></i><span>&nbsp;Book now</span></a>
                                       <button className="btn btn-outline-warning" type="button" data-bs-dismiss="modal"><i className="fa fa-times"></i><span>&nbsp;Close</span></button>
                                   </div>
                               </div>
@@ -340,6 +344,7 @@ export function Available(){
                                           <li>Pool : Yes</li>
                                           <li>Price: 2000$</li>
                                       </ul>
+                                        <a className="btn btn-outline-success" type="button" href={"/booking/6"}   ><i className="fa fa-book"></i><span>&nbsp;Book now</span></a>
                                       <button className="btn btn-outline-warning" type="button" data-bs-dismiss="modal"><i className="fa fa-times"></i><span>&nbsp;Close</span></button>
                                   </div>
                               </div>
